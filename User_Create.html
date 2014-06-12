@@ -1,0 +1,26 @@
+<!DOCTYPE html ">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="view.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    
+    <body id="main_body" >
+	        <form action="User_Create.php" method="POST">
+                <ul>
+                    <li id="li_1" >
+                        <label class="Username" for="element_1">Username (0-10 characters)</label>
+                        <input maxlength="10" id="Username" name="Username" class="element text medium" type="text" maxlength="255" value=""  /> 
+                    </li>
+                        
+                    <li id="li_2" >
+                        <label class="Password" for="element_2">Password (0-10 characters)</label>
+                        <input maxlength="10" id="Password" name="Password" class="element text medium" type="password" maxlength="255" value="" /> 
+                    </li>
+                       
+                    <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit"/>              
+                </ul>
+            </form>		
+	</body>
+</html>

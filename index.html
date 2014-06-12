@@ -1,0 +1,148 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Get Together</title> 
+        <!--------------------------------------------------------------------------------LINKS--------------------------------------------------------------------------------------->
+            <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+            <link rel="stylesheet" type="text/css" href="css/style.css" />
+            <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <!--------------------------------------------------------------------------------/LINKS--------------------------------------------------------------------------------------->
+
+        <!--------------------------------------------------------------------------------SCRIPTS--------------------------------------------------------------------------------------->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrexQSZ9GwbOdAth7FFJsTLtGopAwKJ-g&sensor=true"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+        <script src="http://malsup.github.com/jquery.form.js"></script> 
+ 
+        <!--------------------------------------------------------------------------------/SCRIPTS--------------------------------------------------------------------------------------->
+        
+        <!--------------------------------------------------------------------------------MESSAGES_GENERATE--------------------------------------------------------------------------------------->
+            <script>  
+                window.setInterval(function(){
+                    $.ajax({
+                        type: "GET",
+                        url: 'http://lennertsmets.com/MobileApps/Convo_Read.php',
+                        dataType: 'json',
+                        success: function (data) {
+                            for (i=0; i<data.length; i++) {
+                                $('#messages').append('<div class="'+data[i].id+'" id="conversation" class="conversation">'+data[i].text+data[i].xcor+data[i].ycor+'</div>');
+                            }
+                        }
+                    });
+                    
+                    $( ".messages" ).empty();
+           }, 5000);
+            </script>
+        <!--------------------------------------------------------------------------------/MESSAGES_GENERATE--------------------------------------------------------------------------------------->
+     
+        <!--------------------------------------------------------------------------------FRIENDLIS_GENERATE--------------------------------------------------------------------------------------->
+            <script>
+             $.ajax({
+                type: "GET",
+                url: 'http://lennertsmets.com/MobileApps/Users_List.php',
+                dataType: 'json',
+                success: function (data) {
+                    for (i=0; i<data.length; i++) {
+                        $('#profielen').append('<div data-role="content "class="'+data[i].id+'" id="userpic" class="userpic"> <section class="index"><a href="#createConvo"> <article class="info_list"> <div class="info_pic" id="info_pic"> <img src="'+data[i].Userpicture+'" height="60"> <div class="info_container" id="naam">'+data[i].Username+'  </div></div></article> </a> </section> </div> </div>');
+                    }  
+                }
+            });
+            </script>
+        <!--------------------------------------------------------------------------------/FRIENDLIS_GENERATE--------------------------------------------------------------------------------------->
+        
+        <!--------------------------------------------------------------------------------MESSAGE_POST--------------------------------------------------------------------------------------->
+            <script> 
+                $(document).ready(function() { 
+                    $('#messagesform').ajaxForm(function() { 
+                        alert("succes")
+                    }); 
+                }); 
+            </script> 
+        <!--------------------------------------------------------------------------------/MESSAGE_POST--------------------------------------------------------------------------------------->
+        
+       
+        
+    </head> 
+    <body> 
+
+        <!--------------------------------------------------------------------------------FRIENDLIST--------------------------------------------------------------------------------------->
+            <div data-role="page" id="Friendlist">
+            
+                <div data-role="header" data-role="header" data-theme="c">
+                    <h1>Search friends</h1>
+                </div>
+                
+                <div id="profielen">
+                
+                </div>
+            </div>
+        <!--------------------------------------------------------------------------------/FRIENDLIST--------------------------------------------------------------------------------------->
+
+        <!--------------------------------------------------------------------------------CONVERSATIONS--------------------------------------------------------------------------------------->
+            <div data-role="page" id="createConvo" data-role="header" data-add-back-btn="false" data-theme="c">
+                <div data-role="header">
+                	<a href="#Friendlist" id="send_coordinates">Back</a>
+                    <h1>Messages</h1>
+                </div><!-- /header -->
+                
+                <div data-role="content">	
+                    <div id="DataEntry">
+                        <div id="messages" class="messages">
+                            <!-- Hier komen de oude berichten in-->
+                        </div> 
+                    </div>
+                    
+                    <div data-role="fieldcontain">
+                        
+                       <form id="messagesform" action="http://lennertsmets.com/MobileApps/Convo_Write.php" method="post"> 
+                        
+                        <textarea name="text" id="text" class="text"></textarea> 
+                        <input type="submit" value="Submit Comment" class="ui-block-b" data-theme="c"/> 
+                            
+                    </form>
+                        
+                        <fieldset class="ui-grid-a" id="buttons">
+                            <div ><a data-role="button" href="#map-page" id ="cancel" data-theme="c">Coordinates</a></div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        
+        
+        
+        <!--------------------------------------------------------------------------------/CONVERSATIONS--------------------------------------------------------------------------------------->
+
+        <!-------------------------------------------------------------------------------------MAP--------------------------------------------------------------------------------------->
+            <div data-role="page" id="map-page" data-role="header" data-add-back-btn="false" data-theme="c">
+                <div data-role="header">
+                    <a href="#createConvo" id="map_back_button">Back</a>
+                    <h1>Map</h1>
+                </div>
+                <div id ="map">
+                    <script type="text/javascript" src="cordova.js"></script>
+                    <script type="text/javascript" src="js/maps.js"></script>
+                    <script type="text/javascript"></script>
+                </div>
+                
+            </div> 
+        <!-------------------------------------------------------------------------------------MAP--------------------------------------------------------------------------------------->
+
+
+        <div data-role="page" id="map-page" data-role="header" data-add-back-btn="false" data-theme="c">
+            <div data-role="header">
+                <a href="" id="map_back_button">Back</a>
+                <h1>Map</h1>
+            </div>
+            
+	<div id ="map"></div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <!--<script type="text/javascript" src="js/index.js"></script>-->
+        <script type="text/javascript" src="js/maps.js"></script>
+        <script type="text/javascript">
+            //app.initialize();
+        </script>
+
+</body>
